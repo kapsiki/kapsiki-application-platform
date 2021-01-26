@@ -28,6 +28,10 @@ under the License.
 <html lang="${docLangAttr}" dir="${langDir}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <#assign csrfDefenseStrategy = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("security", "csrf.defense.strategy", "org.apache.ofbiz.security.NoCsrfDefenseStrategy", delegator)>
+    <#if csrfDefenseStrategy != "org.apache.ofbiz.security.NoCsrfDefenseStrategy">
+        <meta name="csrf-token" content="<@csrfTokenAjax/>"/>
+    </#if>
     <title>${layoutSettings.companyName}: <#if (titleProperty)?has_content>${uiLabelMap[titleProperty]}<#else>${title!}</#if></title>
     <#if layoutSettings.shortcutIcon?has_content>
       <#assign shortcutIcon = layoutSettings.shortcutIcon/>
@@ -44,7 +48,7 @@ under the License.
 
     <#if layoutSettings.VT_HDR_JAVASCRIPT?has_content>
         <#list layoutSettings.VT_HDR_JAVASCRIPT as javaScript>
-            <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
+            <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="application/javascript"></script>
         </#list>
     </#if>
     <#if layoutSettings.javaScripts?has_content>
@@ -54,7 +58,7 @@ under the License.
       <#list layoutSettings.javaScripts as javaScript>
         <#if javaScriptsSet.contains(javaScript)>
           <#assign nothing = javaScriptsSet.remove(javaScript)/>
-          <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
+          <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="application/javascript"></script>
         </#if>
       </#list>
     </#if>
@@ -87,7 +91,7 @@ under the License.
         </#list>
     </#if>
     <#if layoutSettings.WEB_ANALYTICS?has_content>
-      <script language="JavaScript" type="text/javascript">
+      <script type="application/javascript">
         <#list layoutSettings.WEB_ANALYTICS as webAnalyticsConfig>
           ${StringUtil.wrapString(webAnalyticsConfig.webAnalyticsCode!)}
         </#list>
@@ -102,7 +106,8 @@ under the License.
 <#assign organizationLogoLinkURL = "${layoutSettings.organizationLogoLinkUrl!}">
 
 <body>
-  <div id="wait-spinner" style="display:none">
+  <#include "component://common-theme/template/ImpersonateBanner.ftl"/>
+  <div id="wait-spinner" class="hidden">
     <div id="wait-spinner-image"></div>
   </div>
   <div class="page-container">
@@ -111,31 +116,66 @@ under the License.
         ${uiLabelMap.CommonSkipNavigation}
       </a>
     </div>
-    <#if "N" == (userPreferences.COMPACT_HEADER)?default("N")>
-      <div id="masthead">
-        <ul>
-          <#if layoutSettings.headerImageUrl??>
-            <#assign headerImageUrl = layoutSettings.headerImageUrl>
-          <#elseif layoutSettings.commonHeaderImageUrl??>
-            <#assign headerImageUrl = layoutSettings.commonHeaderImageUrl>
-          <#elseif layoutSettings.VT_HDR_IMAGE_URL??>
-            <#assign headerImageUrl = layoutSettings.VT_HDR_IMAGE_URL>
-          </#if>
+    <nav id="top-navbar" class="top-bar">
+      <div class="top-bar-left">
+        <#if layoutSettings.headerImageUrl??>
+          <#assign headerImageUrl = layoutSettings.headerImageUrl>
+        <#elseif layoutSettings.commonHeaderImageUrl??>
+          <#assign headerImageUrl = layoutSettings.commonHeaderImageUrl>
+        <#elseif layoutSettings.VT_HDR_IMAGE_URL??>
+          <#assign headerImageUrl = layoutSettings.VT_HDR_IMAGE_URL>
+        </#if>
+        <#-- 
+          ghislainkouete: By using the organizationLogoLinkURL that was set above after the ending </head> tag
+          instead of headerImageUrl, the header keep displaying logo image from common/images, instead of /mandara/images 
+          Therefore, proceeding by using the headerImageUrl directly in the code instead of organizationLogoLinkURL
+        -->
+        <ul class="top-bar__top-bar-left__logo-area">
           <#if headerImageUrl??>
-            <#if organizationLogoLinkURL?has_content>
-                <li id="org-logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${StringUtil.wrapString(organizationLogoLinkURL)}</@ofbizContentUrl>"></a></li>
-                <#else>
-                <li id="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>" title="${layoutSettings.companyName!}"></a></li>
-            </#if>
-          </#if>
-          <#if layoutSettings.middleTopMessage1?has_content && layoutSettings.middleTopMessage1 != " ">
-            <li class="last-system-msg">
-                <a href="${StringUtil.wrapString(layoutSettings.middleTopLink1!)}">${layoutSettings.middleTopMessage1!}</a><br/>
-                <a href="${StringUtil.wrapString(layoutSettings.middleTopLink2!)}">${layoutSettings.middleTopMessage2!}</a><br/>
-                <a href="${StringUtil.wrapString(layoutSettings.middleTopLink3!)}">${layoutSettings.middleTopMessage3!}</a>
-            </li>
+            <li><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${StringUtil.wrapString(headerImageUrl)}</@ofbizContentUrl>"></a></li>
+              <#else>
+            <li><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>" title="${layoutSettings.companyName!}"></a></li>
           </#if>
         </ul>
-        <br class="clear" />
+        <#if layoutSettings.middleTopMessage1?has_content && layoutSettings.middleTopMessage1 != " ">
+          <li class="last-system-msg">
+              <a href="${StringUtil.wrapString(layoutSettings.middleTopLink1!)}">${layoutSettings.middleTopMessage1!}</a><br/>
+              <a href="${StringUtil.wrapString(layoutSettings.middleTopLink2!)}">${layoutSettings.middleTopMessage2!}</a><br/>
+              <a href="${StringUtil.wrapString(layoutSettings.middleTopLink3!)}">${layoutSettings.middleTopMessage3!}</a>
+          </li>
+        </#if>
       </div>
-    </#if>
+      <#--
+        ghislainkouete: taken out the whole control-area from AppBarClose.ftl and moved it here 
+        to make it the top bar left area of the top navigation area
+        thus having a consistent header file encompassing logo and application agnostic menu / navigation area
+      -->
+      <div class="top-bar-right">
+        <ul>
+          <#if userLogin??>
+            <li><a class="help-link alert" href="${userDocUri!Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("general", "userDocUri", delegator)}<#if helpAnchor??>#${helpAnchor}</#if>" target="help" title="${uiLabelMap.CommonHelp}"></a></li>
+            <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
+            <li><a href="<@ofbizUrl>ListVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a></li>
+          <#else>
+            <li><a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
+          </#if>
+          <li <#if companyListSize?default(0) &lt;= 1></#if>><a href="<@ofbizUrl>ListLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle}</a></li>
+          <#if userLogin?exists>
+            <#if userLogin.partyId?exists>
+              <li><a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${userLogin.partyId}</@ofbizUrl>">${userName}</a>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+              <#assign size = companyListSize?default(0)>
+              <#if size &gt; 1>
+                  <#assign currentCompany = delegator.findOne("PartyNameView", {"partyId" : organizationPartyId}, false)>
+                  <#if currentCompany?exists>
+                      <li>
+                          <a href="<@ofbizUrl>ListSetCompanies</@ofbizUrl>">${currentCompany.groupName} &nbsp;- </a>
+                      </li>
+                  </#if>
+              </#if>
+            <#else>
+              <li>${userName}</li>
+            </#if>
+          </#if>
+        </ul>
+      </div>
+    </nav>

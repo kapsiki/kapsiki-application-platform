@@ -1,0 +1,23 @@
+/* 
+Implementation of the header specific styles
+*/
+.top-bar {
+  width: 100%;
+
+  ul {
+    list-style: none;
+  }
+
+  img {
+    max-height: 4rem;
+  }
+}
+
+.top-bar-right {
+  li {
+    display: inline-block;
+  }
+  a:not(:last-child) {
+    margin-right: 1rem;
+  }
+}

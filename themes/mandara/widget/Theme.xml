@@ -34,13 +34,22 @@ under the License.
         <property name="VT_FTR_TMPLT_LOC" value="component://mandara/template/Footer.ftl"/>
         <property name="VT_NAV_OPEN_TMPLT" value="component://mandara/template/AppBarOpen.ftl"/>
         <property name="VT_NAV_CLOSE_TMPLT" value="component://mandara/template/AppBarClose.ftl"/>
+        <property name="VT_NAV_CLOSE_TMPLT" value="component://mandara/template/AppBarClose.ftl"/>
+        <property name="VT_LOGIN_TMPLT_LOC" value="component://mandara/template/Login.ftl"/>
         <property name="VT_MSG_TMPLT_LOC" value="component://common-theme/template/includes/Messages.ftl"/>
         <!--header image -->
-        <property name="VT_HDR_IMAGE_URL" value="/images/ofbiz_logo.png"/>
+        <property name="VT_HDR_IMAGE_URL" value="/mandara/images/kapsiki_logo.png"/>
         <!--javascript lib-->
         <property name="VT_HDR_JAVASCRIPT['add']" value="/mandara/js/dropdown.js"/>
+        <!-- ghislainkouete: Adding foundation js 
+             FIXME: May be not required to be added since it could be already added as dependency
+             to the css by the framework itself internally
+        -->
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/mandara/foundation/js/app.js"/>
         <!--Css style-->
-        <property name="VT_STYLESHEET['add']" value="/mandara/css/style.css"/>
+        <!-- ghislainkouete: Replacing the tomahawk style with mandara one-->
+        <!--<property name="VT_STYLESHEET['add']" value="/mandara/css/style_tomahawk.css"/> -->
+        <property name="VT_STYLESHEET['add']" value="/mandara/foundation/css/app.css"/> 
         <property name="VT_HELPSTYLESHEET['add']" value="/mandara/css/help.css"/>
         <property name="VT_DOCBOOKSTYLESHEET['add']" value="/mandara/webapp/mandara/css/docbook.css"/>
     </theme-properties>

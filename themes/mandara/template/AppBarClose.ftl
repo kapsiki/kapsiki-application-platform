@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign appModelMenu = Static["org.apache.ofbiz.widget.model.MenuFactory"].getMenuFromLocation(applicationMenuLocation,applicationMenuName)>
+<#assign appModelMenu = Static["org.apache.ofbiz.widget.model.MenuFactory"].getMenuFromLocation(applicationMenuLocation,applicationMenuName,visualTheme)>
 <#if person?has_content>
   <#assign userName = (person.firstName!) + " " + (person.middleName!) + " " + person.lastName!>
 <#elseif partyGroup?has_content>
@@ -50,63 +50,13 @@ under the License.
     </#if>
 </#if>
 
-<div id="control-area">
-  <ul id="preferences-menu">
-    <#if userLogin??>
-      <#if "Y" == (userPreferences.COMPACT_HEADER)?default("N")>
-        <li class="collapsed"><a href="javascript:document.setUserPreferenceCompactHeaderN.submit()">&nbsp;</a>
-          <form name="setUserPreferenceCompactHeaderN" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>">
-            <input type="hidden" name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
-            <input type="hidden" name="userPrefTypeId" value="COMPACT_HEADER"/>
-            <input type="hidden" name="userPrefValue" value="N"/>
-          </form>
-        </li>
-      <#else>
-        <li class="expanded"><a href="javascript:document.setUserPreferenceCompactHeaderY.submit()">&nbsp;</a>
-          <form name="setUserPreferenceCompactHeaderY" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>">
-            <input type="hidden" name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
-            <input type="hidden" name="userPrefTypeId" value="COMPACT_HEADER"/>
-            <input type="hidden" name="userPrefValue" value="Y"/>
-          </form>
-        </li>
-      </#if>
-    </#if>
-    <#if userLogin??>
-      <#--if webSiteId?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??-->
-      <#if parameters.componentName?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??>
-        <#include "component://common-theme/template/includes/HelpLink.ftl" />
-        <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup1('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${(parameters.portalPageId!)?html}','help' ,500,500);" title="${uiLabelMap.CommonHelp}"></a></li>
-      </#if>
-      <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
-      <li><a href="<@ofbizUrl>ListVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a></li>
-    <#else>
-      <li><a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
-    </#if>
-    <li <#if companyListSize?default(0) &lt;= 1>class="language"</#if>><a href="<@ofbizUrl>ListLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle}</a></li>
-    <#if userLogin?exists>
-      <#if userLogin.partyId?exists>
-        <li class="user"><a href="/partymgr/control/viewprofile?partyId=${userLogin.partyId}${externalKeyParam!}">${userName}</a>&nbsp;&nbsp;&nbsp;&nbsp;</li>
-        <#assign size = companyListSize?default(0)>
-        <#if size &gt; 1>
-            <#assign currentCompany = delegator.findOne("PartyNameView", {"partyId" : organizationPartyId}, false)>
-            <#if currentCompany?exists>
-                <li class="user">
-                    <a href="<@ofbizUrl>ListSetCompanies</@ofbizUrl>">${currentCompany.groupName} &nbsp;- </a>
-                </li>
-            </#if>
-        </#if>
-      <#else>
-        <li class="user">${userName}</li>
-      </#if>
-    </#if>
-  </ul>
-</div>
+
 </div>
 <div class="clear">
 </div>
 
 <#if userLogin??>
-<script type="text/javascript">
+<script type="application/javascript">
   var mainmenu = new DropDownMenu(jQuery('#main-navigation'));
   var appmenu = new DropDownMenu(jQuery('#app-navigation'));
 </script>
