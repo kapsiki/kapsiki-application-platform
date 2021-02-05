@@ -19,5 +19,5 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <VisualTheme visualThemeId="MANDARA" visualThemeSetId="BACKOFFICE" description="Mandara - A Zurb Foundation based Visual Theme"/>
+    <VisualTheme visualThemeId="MANDARA" visualThemeSetId="BACKOFFICE" description="Mandara - A vanilla sass based standard kapsiki Visual Theme"/>
 </entity-engine-xml>

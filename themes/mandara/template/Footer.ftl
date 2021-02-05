@@ -17,28 +17,28 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign nowTimestamp = Static["org.apache.ofbiz.base.util.UtilDateTime"].nowTimestamp()>
+      <#assign nowTimestamp = Static["org.apache.ofbiz.base.util.UtilDateTime"].nowTimestamp()>
 
-<footer class="main-footer">
-  <div class="grid-x">
-    <div class="cell large-12">
-      <ul class="menu">
-      <li>${uiLabelMap.CommonCopyright} (c) 2020-${nowTimestamp?string("yyyy")} Kapsiki Digital Solutions - </li>
-        <li><a href="https://www.kapsiki.net" target="_blank">www.kapsiki.net</a></li>
-        <li>${uiLabelMap.CommonPoweredBy}</li>
-        <li><a href="http://ofbiz.apache.org" target="_blank">kapsiki application platform</a></li>
-      </ul>
-    </div>  
-  </div>
-</footer>
+      <footer class="footer">
+        <ul>
+          <li>${uiLabelMap.CommonCopyright} (c) 2020-${nowTimestamp?string("yyyy")} - </li>
+          <li><span class="u-color-primary">KAP</span><span class="u-color-secondary">SI</span><span class="u-color-warning">K</span><span class="u-color-success-dark">I</span></li>
+          <li><span class="u-color-gray">Digital Solutions</span></li>
+          <li><a href="https://www.kapsiki.net" target="_blank">https://www.kapsiki.net</a></li>
+          <li>${uiLabelMap.CommonPoweredBy}</li>
+          <li><a href="http://ofbiz.apache.org" target="_blank">Apache OFbiz Framework based kapsiki application platform</a></li>
+        </ul>
+      </footer>
 
-<#if layoutSettings.VT_FTR_JAVASCRIPT?has_content>
-  <#list layoutSettings.VT_FTR_JAVASCRIPT as javaScript>
-    <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="application/javascript"></script>
-  </#list>
-</#if>
-
-</div>
-<@scriptTagsFooter/>
-</body>
+      <#if layoutSettings.VT_FTR_JAVASCRIPT?has_content>
+        <#list layoutSettings.VT_FTR_JAVASCRIPT as javaScript>
+          <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="application/javascript"></script>
+        </#list>
+      </#if>
+      <!-- closing the <div class="page-container> tag from header.ftl-->
+    </div>
+    <@scriptTagsFooter/>
+    <!-- closing the <body> tag from header.ftl -->
+  </body>
+  <!-- closing the <html> tag from header.ftl -->
 </html>

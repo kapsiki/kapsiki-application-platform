@@ -1,0 +1,201 @@
+/* Login Page Styles */
+
+.login__hero {
+  /*  
+    The login hero encompasses the main login area content between the header and the footer
+    Thus the hero is built to fill as much space as possible left between both the header and the footer
+    It's background image is overlaid with a solid gradient, making it possible to lighten or darken it as needed
+    Note: There is an alternative implementation commented out at the botteom of the page, based upon ::before, and z-index 
+  */
+  //height: 91vh;
+  height: $default-page-height;
+  background-image: linear-gradient(
+      to left bottom,
+      rgba($color-secondary-light, 0.1),
+      rgba($color-secondary-light, 0.1)
+    ),
+    url('../images/kapsiki-bg-img-2.png');
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+  //position: relative;
+}
+
+.login-form {
+  //ensuring that the login form is always displayed in the middle of the screen
+  //by centering the whole content on the main and cross axis with flex
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+
+  //Login (form) header is intentionally out of the <form> tag as to enable different backgrounds
+  //The header has none so far, and the Login form container has a linear gradient of the white color
+  &__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    & img {
+      align-self: flex-start;
+      justify-self: start;
+      height: 4rem;
+      margin-bottom: 0.4rem;
+    }
+    & h3 {
+      align-self: flex-end;
+      justify-self: end;
+    }
+  }
+
+  //Login (form) Container encompasses the input groups that style the actual presentation of the login form
+  &__container {
+    padding: 3rem 6rem;
+    border-radius: 0.3rem;
+    width: 27%;
+    background-image: linear-gradient(
+      to right,
+      rgba($color-gray-light, 0.6),
+      rgba($color-gray-light, 0.6)
+    );
+  }
+
+  /*login-form__group represents an aggregation of inputs, labels, btn,...
+   into an atomic element within the Login container
+   */
+  &__group {
+    &:not(:last-child) {
+      margin: 1.5rem 0;
+    }
+  }
+
+  //icon is displayed next to the input, thus both specified as inline-block
+  &__icon {
+    //font-size: 1.4rem;
+    font-size: 1.6rem;
+    margin-right: 0.5rem;
+    width: 3rem;
+    display: inline-block;
+    background-image: linear-gradient(
+      to right,
+      rgba($color-primary-light, 0.8),
+      rgba($color-primary-dark, 0.8)
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+  //input styling
+  &__input {
+    width: 90%;
+    font-size: 1.5rem;
+    //ensuring that the font family is the same as the default, otherwise usually overwritten by browsers
+    font-family: inherit;
+    color: inherit;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    //margin: 0 auto;
+    border-radius: 0.2rem;
+    border: none;
+    //ensuring that there is no changes when focus on an input by setting the border bottom (but transparent)
+    border-bottom: 0.3rem solid transparent;
+    background-color: rgba($color-white, 0.5);
+    //  transition: all 0.3s;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 1rem 2rem rgba($color-black, 0.1);
+      border-bottom: 0.3rem solid $color-success-dark;
+    }
+    //validating user input
+    &:focus:invalid {
+      border-bottom: 0.3rem solid $color-secondary-dark;
+    }
+
+    //making the input placeholder text not too visible by using a slight gray color
+    &::-webkit-input-placeholder {
+      color: rgba($color-gray-dark, 0.2);
+    }
+  }
+  /*
+  the label is hidden in the initial state,
+  and moves/shows up to the top of the input field as soon as the user start providing values
+  as if it were the placeholder text moving up 
+  Note: the placeholder shown style may neither be nested in the input style nor in the label style
+  */
+  &__label {
+    font-size: 1.2rem;
+    font-family: inherit;
+    font-weight: 700;
+    display: block;
+    padding-right: 24rem;
+    //margin-right: 26rem;
+    transition: all 0.3s;
+    transform: translateY(-5rem);
+  }
+
+  //&__input:placeholder-shown ~ &__label
+  /* enabling the input to select the label as the next sibling in the style
+     so that the label can be displayed while the user inputs values
+  */
+  &__input:placeholder-shown + &__label {
+    opacity: 0;
+    visibility: hidden;
+    //set initial position of the label to overlap the input field as to enable the move down animation
+    transform: translateY(-3rem);
+  }
+
+  //specific login btn
+  //FIXME: move to the button specific partial ?
+  &__btn-login {
+    width: 97.5%;
+    padding: 1rem 3rem;
+    margin: 0 1rem;
+    display: block;
+    border: none;
+    cursor: pointer;
+    color: $color-white;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    background-color: rgba($color-primary-dark, 0.8);
+    border-radius: 0.2rem;
+  }
+
+  &__recover-pw {
+    margin-top: 1rem;
+    display: inline-block;
+    color: $color-primary-dark;
+    text-decoration: none;
+  }
+}
+
+//FIXME: had to define color gray dark in here for it to work for the input
+.u-color-gray {
+  color: $color-gray;
+}
+
+//Alternative implementation of the login hero based upon overlay
+// .login__hero {
+//   height: 90vh;
+//   background: url('../images/kapsiki-bg-img-1.png') no-repeat center
+//     center/cover;
+//   position: relative;
+//   //z-index: 1;
+
+//   &::before {
+//     content: '';
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+//     background-color: rgba(0, 0, 0, 0.4);
+//   }
+
+//   & * {
+//     z-index: 20;
+//   }
+// }

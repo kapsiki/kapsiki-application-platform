@@ -20,7 +20,7 @@ under the License.
 
 <web-app version="3.0">
   <display-name>Kapsiki Digital Solutions - Mandara Visual Theme</display-name>
-  <description>Mandara - A Zurb Foundation based Visual Theme</description>
+  <description>Mandara - A vanilla sass based standard kapsiki Visual Theme</description>
 
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

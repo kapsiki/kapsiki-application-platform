@@ -1,0 +1,46 @@
+.header {
+  height: $height-header;
+  font-weight: 400;
+  font-size: $default-font-size;
+  background-color: $color-gray-light;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__top-bar--left {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    a {
+      img {
+        height: 3rem;
+        width: 3rem;
+      }
+    }
+    //align the header brand text to the botton of the logo img, comment out to center again if necessary
+    h4 {
+      padding-top: 0.2rem;
+    }
+  }
+
+  &__top-bar--right {
+    ul {
+      list-style: none;
+      li {
+        display: inline-block;
+
+        a:link,
+        a:visited {
+          color: rgba($color-gray-dark, 0.4);
+          text-decoration: none;
+          margin-right: 1rem;
+          // &:not(:last-child) {
+          //   margin-right: 2rem;
+          // }
+        }
+      }
+    }
+  }
+}

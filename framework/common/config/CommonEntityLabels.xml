@@ -21956,7 +21956,7 @@
         <value xml:lang="fr"> : le thème Rainbowstone en bleu</value>
     </property>
         <property key="VisualTheme.description.MANDARA">
-        <value xml:lang="en">: Mandara - A Zurb Foundation based Visual Theme</value>
-        <value xml:lang="fr"> : Mandara - Le thème visual a base de Zurb Foundation</value>
+        <value xml:lang="en">: Mandara - A vanilla sass based standard kapsiki Visual Theme</value>
+        <value xml:lang="fr"> : Mandara - Le thème visuel standard kapsiki a base de sass natif</value>
     </property>
 </resource>

@@ -1,0 +1,27 @@
+.footer {
+  height: $height-footer;
+  font-size: $footer-font-size;
+  font-weight: 100;
+  background-color: $color-gray-light;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ul {
+    list-style: none;
+    li {
+      display: inline-block;
+
+      a:link,
+      a:visited {
+        color: $color-gray;
+        text-decoration: none;
+        margin-right: 1rem;
+        // &:not(:last-child) {
+        //   margin-right: 2rem;
+        // }
+      }
+    }
+  }
+}

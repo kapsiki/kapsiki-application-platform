@@ -1,0 +1,54 @@
+//$color-primary: #1779ba; //Zurb Foundation blue color, quite similar to steelblue
+//$color-primary: #0275d8; //Bootstrap blue color rgb(2, 117, 216)
+//$color-primary-light: #5bc0de; //Bootstrap light blue color rgb(91, 192, 222)
+$color-primary: #4267b2; //Facebook blue color
+$color-primary-light: #2998ff;
+$color-primary-dark: #315a7d; //darker shade of steel blue
+
+$color-secondary: #ff5719; //shade of orangered
+$color-secondary-light: #ff7c4c; //shade of orangered
+$color-secondary-medium: #ff7f50; //coral
+$color-secondary-dark: #ff4500; //orangered
+
+$color-success: #42b72a; //Facebook success color
+$color-success-light: #3adb76; //Zurb Foundation success color
+//$color-success-light: #5cb85c; //Bootstrap success color rgb(92, 184, 92)
+$color-success-dark: #28b485;
+
+$color-warning: #ffae00; //Zurb Foundation warning color
+$color-warning-light: #f0ad4e; //Bootstrap warning color rgb(240, 173, 78)
+
+$color-alert: #cc4b37; //Zurb Foundation alert color
+$color-alert-light: #d9534f; //Bootstrap alert color rgb(217, 83, 79)
+
+//$color-gray-light: #e6e6e6; //Zurb Foundation light gray color
+//$color-gray-medium: #cacaca; //Zurb Foundation medium gray color
+//$color-gray-dark: #8a8a8a; //Zurb Foundation dark gray color
+$color-gray: #999;
+$color-gray-light: #f7f7f7; //FIXME: Decide whether gray-light or white-light
+$color-gray-medium: #eee;
+$color-gray-dark: #777;
+$color-gray-dark-ultra: #333;
+
+$color-black: #000;
+$color-black-light: #292b2c; //Bootstrap black color rgb(41, 43, 44)
+$color-black-dark: #0a0a0a; //Zurb Foundation black color
+
+$color-white: #fff;
+//$color-white-dark: #f7f7f7; //white rgb(247, 247, 247)
+
+// FONTS and SIZES
+//default font size will be applied to calculate actual font size base on value in html{}, usually 62,5%
+$default-font-size: 1.6rem;
+$default-page-height: 91vh;
+$footer-font-size: calc($default-font-size -5rem);
+$height-header: 5.5rem;
+$height-footer: 3rem;
+//$default-page-height: calc(100% - ($height-header + $height-footer));
+
+// GRID SYSTEM
+$grid-width: 114rem;
+$gutter-vertical: 8rem;
+$gutter-horizontal: 6rem;
+
+//SIZES

@@ -28,40 +28,42 @@ under the License.
 <#else>
   <#assign focusName = true>
 </#if>
-<div class="login-page-hero">
-  <div class="login-box-container">
-    <div class="login-box-header">
-      <#--<img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${StringUtil.wrapString(layoutSettings.VT_HDR_IMAGE_URL)}</@ofbizContentUrl>">
-      -->
-      <h3>${uiLabelMap.CommonRegistered}</h3>
+<div class="login__hero">
+  <div class="login-form">
+    <div class="login-form__header u-margin-bottom-tiny">
+      <img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${StringUtil.wrapString(layoutSettings.VT_HDR_IMAGE_URL)}</@ofbizContentUrl>">
+      <h3 class="heading-tertiary">${uiLabelMap.CommonRegistered}</h3>
     </div>
-    <div class="login-box-content">
+    <div class="login-form__container">
       <form method="post" action="<@ofbizUrl>login</@ofbizUrl>" name="loginform">
-        <div class="basic-table">
-          <div class="input-group">
-            <label>${uiLabelMap.CommonUsername}</label>
-            <input type="text" name="USERNAME" value="${username}" size="20"/>
-          </div>
-          <div class="input-group">
-            <label>${uiLabelMap.CommonPassword}</label>
-            <input type="password" name="PASSWORD" autocomplete="off" value="" size="20"/>
-          </div>
-          <#if ("Y" == useMultitenant) >
-            <#if !requestAttributes.userTenantId??>
-              <div class="input-group">
-                <label>${uiLabelMap.CommonTenantId}</label>
-                <input type="text" name="userTenantId" value="${parameters.userTenantId!}" size="20"/>
-              </div>
-            <#else>
-                <input type="hidden" name="userTenantId" value="${requestAttributes.userTenantId!}"/>
-            </#if>
+        <div class="login-form__group">
+          <!--Inverting the natural order of the input group
+           for enabling the input to select the label as the next sibling in the style
+           so that the label can be displayed while the user inputs values-->
+          <i class="login-form__icon fas fa-user"></i>
+          <input type="text" name="USERNAME" id="USERNAME" value="${username}" class="login-form__input u-color-gray login-form__input--iconized" placeholder="User Name" required>
+          <label for="USERNAME" class="login-form__label login-form__label--user u-color-gray">${uiLabelMap.CommonUsername}</label>
+        </div>
+        <div class="login-form__group">
+        <i class="login-form__icon fas fa-lock"></i>
+          <input type="password" name="PASSWORD" id="PASSWORD" autocomplete="off" value="" class="login-form__input u-color-gray" placeholder="Password" required/>
+          <label for="PASSWORD" class="login-form__label u-color-gray">${uiLabelMap.CommonPassword}</label>
+        </div>
+        <#if ("Y" == useMultitenant) >
+          <#if !requestAttributes.userTenantId??>
+            <div class="login-form__group">
+              <input type="text" name="userTenantId" value="${parameters.userTenantId!}" class="login-form__input u-color-gray"/><!-- placeholder="Tenant Id" required/>-->
+              <label>${uiLabelMap.CommonTenantId}</label>
+            </div>
+          <#else>
+              <input type="hidden" name="userTenantId" value="${requestAttributes.userTenantId!}"/>
           </#if>
-          <div class="submit-btn">
-              <input type="submit" value="${uiLabelMap.CommonLogin}"/>
-          </div>
+        </#if>
+        <div>
+          <input type="submit" class="login-form__btn-login btn" value="${uiLabelMap.CommonLogin}"/>
         </div>
         <input type="hidden" name="JavaScriptEnabled" value="N"/>
-        <a href="<@ofbizUrl>forgotPassword</@ofbizUrl>">${uiLabelMap.CommonForgotYourPassword}?</a>
+        <a class="login-form__recover-pw" href="<@ofbizUrl>forgotPassword</@ofbizUrl>">${uiLabelMap.CommonForgotYourPassword}?</a>
       </form>
     </div>
   </div>
